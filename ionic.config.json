@@ -1,0 +1,7 @@
+{
+  "name": "ObaOrin",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

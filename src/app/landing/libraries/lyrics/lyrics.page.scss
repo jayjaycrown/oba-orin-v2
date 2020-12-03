@@ -1,0 +1,19 @@
+ion-searchbar {
+    --border-radius: 30px !important;
+}
+
+ion-list{
+    margin-top: 10px;
+    border: 1px solid #707070;
+    border-radius: 20px;
+    height: auto;
+}
+
+ion-item {
+    --border-color	: #707070;
+    --padding-end: 15px;
+    --padding-start: 15px;
+}
+ion-item:last-child {
+    --border-color	: transparent;
+}

@@ -1,0 +1,91 @@
+ion-searchbar {
+    --border-radius: 30px !important;
+}
+ion-header{
+    background:#ffffff !important;
+}
+
+// ion-segment {
+//   --background:#1909ff;
+// }
+ion-slides{
+    border-radius: 20px;
+}
+
+// Slider Style START 
+.custon-nav{
+  height: 48px;
+  width: 20px;
+  cursor: pointer;
+
+  vertical-align: middle;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.prev-icon-custom{
+  background: url(https://freakyjolly.com/demo/jquery/OwlCarousel2/nav-icon.png) no-repeat scroll 0px 0px;
+}
+.prev-icon-custom.disabled{
+  opacity: 0.4;
+  cursor: default;
+}
+.next-icon-custom{
+  background: url(https://freakyjolly.com/demo/jquery/OwlCarousel2/nav-icon.png) no-repeat scroll -32px 0px;
+}
+.next-icon-custom.disabled{
+  opacity: 0.4;
+  cursor: default;
+}
+.slider-nav{
+  ion-icon{
+      height: 100%;
+  }
+}
+
+.slide-text{
+  position: absolute;
+  color: rgb(42, 9, 230);
+  bottom: 30px;
+}
+
+// Slider Style STOP
+ion-segment{
+    --border-width: 0;
+    border: none !important;
+}
+ion-segment-button{
+    --background: #fff;
+    --background-checked: #03028c;
+    --background-focused:#03028c;
+    --color: #03028c;
+    --color-checked: #fff;
+    --color-focused:#fff;
+    --border-color: #03028c;
+    --border-width: 1px;
+    --border-style: solid;
+    --border-radius: 30px 0 0 30px;
+    --indicator-height: 0;
+    // --margin-start: 10px;
+}
+
+ion-segment-button:nth-child(2) {
+    --border-radius: 0 30px 30px 0 !important;
+    // --margin-start: 10px;
+}
+
+ion-list{
+    margin-top: 10px;
+    border: 1px solid #707070;
+    border-radius: 20px;
+    height: auto;
+}
+
+ion-item {
+    --border-color	: #707070;
+    --padding-end: 15px;
+    --padding-start: 15px;
+}
+ion-item:last-child {
+    --border-color	: transparent;
+}

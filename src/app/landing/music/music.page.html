@@ -1,0 +1,72 @@
+
+
+<ion-content class="ion-padding">
+<ion-searchbar 
+      placeholder='Search...' 
+      [(ngModel)]="test" 
+      (change)="search($event)" 
+      >
+    </ion-searchbar>
+    <br>
+  <ion-slides pager="true" [options]="slideOptsOne" #slideWithNav
+    (ionSlideDidChange)="SlideDidChange(sliderOne,slideWithNav)">
+    <ion-slide *ngFor="let s of sliderOne.slidesItems">
+      <img [src]="s.img">
+    </ion-slide>
+  </ion-slides>
+  <br>
+
+  <ion-segment 
+    [(ngModel)]="type" 
+    (ionChange)="segmentChanged($event)" 
+    scrollable 
+    value="featured" >
+    <ion-segment-button value="featured" checked>
+      <ion-label>Featured Songs</ion-label>
+      <!-- <ion-icon name="cash"></ion-icon> -->
+    </ion-segment-button>
+    <ion-segment-button value="mostDownloaded">
+      <ion-label>Most Downloaded</ion-label>
+      <!-- <ion-icon name="log-out"></ion-icon> -->
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="type" class="testList">
+    <ion-list *ngSwitchCase="'featured'">
+      <ion-item >
+        <ion-label>
+          test1
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          test2
+        </ion-label>
+      </ion-item>
+      <ion-item >
+        <ion-label>
+          test1
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          test2
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'mostDownloaded'">
+      <ion-item >
+        <ion-label>
+          testing 1
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          testing 2
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>

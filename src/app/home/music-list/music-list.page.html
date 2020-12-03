@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-searchbar color='primary'></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <ion-item *ngFor="let music of lists"  detail [routerLink]="['/','home','music-detail', music.id]">
+      <ion-thumbnail slot="start">
+        <ion-img [src]="music.banner"></ion-img> 
+      </ion-thumbnail>
+      <ion-label>
+        <!-- {{ music }} -->
+        <h3 class="no-wrap"> {{ music.id }} </h3>
+        <h3 class="no-wrap"> {{ music.name }} </h3>
+        <!-- <p> {{ music.author }} </p>  -->
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

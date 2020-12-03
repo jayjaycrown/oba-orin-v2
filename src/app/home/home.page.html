@@ -1,0 +1,49 @@
+<ion-content>
+
+  <div class="heading">
+    <ion-toolbar color='primary'>
+      <ion-searchbar color='primary'></ion-searchbar>
+    </ion-toolbar>
+  </div>
+  <div class="container">
+    <ion-grid>
+      <ion-row >
+        <ion-col >
+          <ion-card [routerLink]="['/','home','music-list']">
+            <ion-card-content>
+              <h3> <ion-icon name="musical-notes-outline"></ion-icon></h3>
+              <h3>Local Music</h3>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col class="ion-align-self-center">
+          <ion-card [routerLink]="['/','home','music-list']">
+            <ion-card-content>
+              <h3> <ion-icon name="musical-notes-outline"></ion-icon></h3>
+              <h3>My Downloads</h3>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-card [routerLink]="['/','home','music-list']">
+            <ion-card-content>
+              <h3> <ion-icon name="musical-notes-outline"></ion-icon></h3>
+              <h3>Lyrics</h3>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card [routerLink]="['/','home','music-list']">
+            <ion-card-content>
+              <h3> <ion-icon name="musical-notes-outline"></ion-icon></h3>
+              <h3>Saved Lyrics</h3>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+</ion-content>
