@@ -3,13 +3,13 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home/tabs/lyrics"></ion-back-button>
     </ion-buttons>
-    <ion-title>Lyrics Title</ion-title>
+    <ion-title>{{ lyricsTitle }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding text-center">
-  <div id="lyricsContent" >
-   {{ lyricsContent }}
+  <div id="lyricsContent" [innerHTML]="lyricsContent">
+   <!-- {{ lyricsContent }} -->
   </div>
   
   <!-- fab placed to the bottom end -->

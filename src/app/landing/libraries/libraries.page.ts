@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { APIServiceService } from '../../service/apiservice.service';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-libraries',
@@ -8,12 +10,21 @@ import { Component, OnInit } from '@angular/core';
 // tslint:disable-next-line: component-class-suffix
 export class LibrariesPage implements OnInit {
 
-  constructor() { }
+  constructor(private apiService: APIServiceService, private platform: Platform) {
+    this.platform.ready().then(() => {
+      this.apiService.getImei().then(res => {
+        alert(res);
+      });
+    });
+  }
 
   ngOnInit() {
   }
   comingSoon() {
-    alert('Coming Soon');
+    // this.apiService.getImei().then(res => {
+    //   alert(res);
+    // });
+    // alert('Coming Soon');
   }
 
 }

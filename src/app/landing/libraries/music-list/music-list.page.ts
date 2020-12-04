@@ -35,7 +35,7 @@ export class MusicListPage implements OnInit {
               private platform: Platform,
               private loader: LoadingController) {
        this.platform.ready().then(async () => {
-     
+
     }).catch(error => {
       console.log(error);
     });
@@ -93,7 +93,7 @@ export class MusicListPage implements OnInit {
       }
 
     });
-    
+
     // alert(this.lists);
     // // await this.storage.set('lists', this.lists);
     //    this.storage.get('lists').then((lists) => {
@@ -105,7 +105,7 @@ export class MusicListPage implements OnInit {
     this.lists = [];
     this.count = 0;
     await this.getAllMusic();
-      event.target.complete();
+    event.target.complete();
       // location.reload();
 
   }
@@ -154,7 +154,7 @@ export class MusicListPage implements OnInit {
             this.count = this.count + 1;
             this.size = 0;
             // await this.getFileSize(musics[i].nativeURL)
-            // setTimeout(() =>{ 
+            // setTimeout(() =>{
             //   alert(this.size);
             //  }, 3000);
             // alert(size)
@@ -165,7 +165,7 @@ export class MusicListPage implements OnInit {
                 id: this.count,
                 size: 0,
               });
-             this.InsertOrUpdate(this.count, JSON.stringify(this.slist));
+            this.InsertOrUpdate(this.count, JSON.stringify(this.slist));
 
 
 
@@ -184,7 +184,7 @@ export class MusicListPage implements OnInit {
   }
   async ngOnInit() {
    await this.createDB();
-    this.loader.create({
+   this.loader.create({
       keyboardClose: true,
       message: `
                 <div class="custom-spinner-container">
@@ -206,7 +206,7 @@ async getFileSize(nativeUrl) {
       fileEntry.getMetadata((metadata) => {
         // alert(JSON.stringify(metadata));
         this.size = metadata.size;
-        
+
         // console.log("image size : " + metadata.size);
         // console.log("image date : " + metadata.modificationTime);
       });
@@ -259,7 +259,7 @@ async GetTable(tableName) {
       this.slist = JSON.parse(response.rows.item(0).songs);
     });
 }
-  
+
 async DeleteTable(tableName) {
   await this.dbo.executeSql('DELETE FROM songlist where id != ?', ['0']).then(async (response) => {
     // alert(JSON.stringify(response.rows.item(0).songs))
@@ -269,12 +269,12 @@ async DeleteTable(tableName) {
   }
 
   async InsertOrUpdate(id, song) {
-    await this.dbo.executeSql("INSERT OR REPLACE INTO songlist VALUES(?,?)",[id,song]).then(async (response) => {
+    await this.dbo.executeSql('INSERT OR REPLACE INTO songlist VALUES(?,?)', [id, song]).then(async (response) => {
     // alert(JSON.stringify(response.rows.item(0).songs))
       // this.slist = JSON.parse(response.rows.item(0).songs);
       // alert('IOU'+JSON.stringify(response))
     }).catch(e => {
-      alert(JSON.stringify(e))
+      alert(JSON.stringify(e));
     }
         // alert(JSON.stringify(e))
         );

@@ -22,18 +22,20 @@ ion-segment-button:nth-child(2) {
     // --margin-start: 10px;
 }
 
-ion-list{
-    margin-top: 10px;
-    border: 1px solid #707070;
-    border-radius: 20px;
-    height: auto;
-}
+// .border{
+//     margin-top: 10px;
+//     border: 1px solid #707070;
+//     border-radius:  0 20px 0 20px;
+//     height: 85%;
+//     overflow-y: auto;
 
-ion-item {
-    --border-color	: #707070;
-    --padding-end: 15px;
-    --padding-start: 15px;
-}
-ion-item:last-child {
-    --border-color	: transparent;
-}
+// }
+
+// ion-item {
+//     --border-color	: rgba(167, 166, 166, 0.568);
+//     --padding-end: 15px;
+//     --padding-start: 15px;
+// }
+// ion-item:last-child {
+//     --border-color	: transparent;
+// }

@@ -18,6 +18,8 @@ import { File } from '@ionic-native/file/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Media } from '@ionic-native/media/ngx';
+import { Uid } from '@ionic-native/uid/ngx';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +30,8 @@ import { Media } from '@ionic-native/media/ngx';
     SplashScreen,
     NativeStorage,
     Media,
+    Uid,
+    AndroidPermissions,
     SQLite,
     SQLitePorter,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

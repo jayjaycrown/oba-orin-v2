@@ -5,6 +5,7 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { Platform } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
+import { APIServiceService } from '../../../service/apiservice.service';
 
 @Component({
   selector: 'app-lyrics-detail',
@@ -20,12 +21,15 @@ count = 0;
 id: any;
 lyricsContent;
 lyricsTitle;
+  lyricsDetails: any;
   constructor(
     private sqlite: SQLite,
-              private sqlitePorter: SQLitePorter,
-              private platform: Platform,
-              private route: ActivatedRoute,
-              private router: Router
+    private sqlitePorter: SQLitePorter,
+    private platform: Platform,
+    private route: ActivatedRoute,
+    private router: Router,
+    private api: APIServiceService,
+    public loadingCtrl: LoadingController
   ) { 
     this.platform.ready().then(async () => {
     }).catch(error => {
@@ -35,21 +39,49 @@ lyricsTitle;
 
   async ngOnInit() {
     // alert(1);
-     this.createDB();
-    this.route.paramMap.subscribe(async (params) => {
+    
+     await this.createDB();
+    //  this.DropTable('lyricslist');
+     this.route.paramMap.subscribe(async (params) => {
       if (!params.has('id')) {
         this.router.navigate(['/home/tabs/lyrics']);
       }
       this.id = params.get('id');
+      let str;
+      str = window.atob(this.id);
+      //  alert(str);
+      str = str.split('~');
+      //  alert( 'from mdetsil')
+      // alert(encodeURIComponent(str[0]));
+     
+      this.getLyrics(str[0] , str[2], str[1]);
+      this.lyricsTitle = decodeURIComponent(str[0]);
+       
     });
-   //MakeApiCall
-  //  document.getElementById()
-  this.lyricsContent = 'ffffffffffff';
-  this.lyricsTitle = "Lyrics Title";
-  
-   
+     this.lyricsContent = '';
+  }
 
-    
+   async getLyrics(title, type, url) {
+    // alert('calling API');
+     const loading = this.loadingCtrl.create({
+      keyboardClose: true,
+      message: `
+                <div class="custom-spinner-container">
+                  <div class="custom-spinner-box"></div>
+                </div>`
+    });
+
+    (await loading).present();
+    await this.api.getLyricsDetails(title, type, url).subscribe(async (res: any) => {
+      // alert(res);
+      this.lyricsDetails = JSON.parse(res);
+      this.lyricsDetails = this.lyricsDetails.result;
+      this.lyricsContent = this.lyricsDetails.content;
+      (await loading).dismiss();
+    },async err => {
+      (await loading).dismiss();
+        alert(err);
+    });
   }
 
   async saveLyrics(){
@@ -57,13 +89,13 @@ lyricsTitle;
       if(response.rows.length >= 1){
         alert('Lyrics already Saved');
       }else{
-        await this.InsertOrUpdate(this.id, this.lyricsContent,this.lyricsTitle);
+        await this.InsertOrUpdate(this.id, this.lyricsContent, this.lyricsTitle);
         alert('Lyrics Saved Successfully');
       }
       // alert(JSON.stringify(response.rows.item(0).lyrics))
         // return response;
       });
-    
+
 
 
     // alert(lyricsContent);
@@ -77,7 +109,7 @@ lyricsTitle;
   })
     .then(async (db: SQLiteObject) => {
       this.dbo = db;
-      db.executeSql('create table  IF NOT EXISTS lyricslist(id INTEGER PRIMARY KEY,lyrics LONGTEXT, name TEXT)', [])
+      db.executeSql('create table  IF NOT EXISTS lyricslist(id TEXT,lyrics LONGTEXT, name TEXT)', [])
         .then(() => {
           // db.executeSql("INSERT INTO lyricslist VALUES ('[]')");
         }
@@ -90,8 +122,8 @@ lyricsTitle;
     }
   
   async DropTable(tableName) {
-      this.dbo.executeSql('DROP table ' + tableName, []).then(() => {}
-          // alert('Executed SQL')
+      this.dbo.executeSql('DROP table ' + tableName, []).then(() => {alert('Executed SQL')}
+          
       ).catch(e => {}
           // alert(JSON.stringify(e))
           );
@@ -135,7 +167,7 @@ lyricsTitle;
         // this.slist = JSON.parse(response.rows.item(0).lyrics);
         // alert('IOU'+JSON.stringify(response))
       }).catch(e => {
-        alert(JSON.stringify(e))
+        alert(JSON.stringify(e));
       }
           // alert(JSON.stringify(e))
           );

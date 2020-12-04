@@ -4,7 +4,7 @@ import { File } from '@ionic-native/file/ngx';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { take, map, tap, delay } from 'rxjs/operators';
 import { MediaObject, Media } from '@ionic-native/media/ngx';
-import { Platform,NavController } from "@ionic/angular";
+import { Platform, NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable({
@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class MusicserviceService {
-  globalPlaying: MediaObject; 
+  globalPlaying: MediaObject;
   globalCheck: any;
   nextMusicId: any;
   previousMusicId: any;
@@ -46,11 +46,12 @@ export class MusicserviceService {
   display_position: any = '00:00';
   // tslint:disable-next-line: variable-name
   display_duration: any = '00:00';
-  current_id : any;
+  current_id: any;
   id: any;
   dbo: any;
   musicList: any;
-  constructor(private file: File,public platform: Platform,
+  constructor(
+    private file: File, public platform: Platform,
     private media: Media,
     private route: ActivatedRoute,
     private navCtrl: NavController,
@@ -99,8 +100,8 @@ export class MusicserviceService {
       this.curr_playing_file.stop();
       this.curr_playing_file.release();
     }
-    this.curr_playing_file = this.media.create(play_The_track)
-    
+    this.curr_playing_file = this.media.create(play_The_track);
+
     return this.curr_playing_file;
   }
 
