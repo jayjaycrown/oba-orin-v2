@@ -6,6 +6,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { Storage } from '@ionic/storage';
+import { MusicserviceService } from '../../../../home/music-list/musicservice.service';
 
 @Component({
   selector: 'app-download-detail',
@@ -19,7 +20,7 @@ export class DownloadDetailPage implements OnInit {
   previousMusicId: any;
   title: any;
   artist: any;
-  image = 'assets/obaorin.jpg';
+  image = 'assets/img/obaorin.jpg';
   filename: any = 'Test Music';
   duration: any = -1;
   data: any;
@@ -48,6 +49,7 @@ export class DownloadDetailPage implements OnInit {
   musicList: any;
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private musicService: MusicserviceService,
               private loadingCtrl: LoadingController,
               private platform: Platform,
               private storage: NativeStorage,
@@ -122,7 +124,8 @@ async ngOnInit() {
   }
   getDuration() {
     // alert(this.title);
-    this.curr_playing_file = this.media.create(this.play_The_track);
+    this.curr_playing_file = this.musicService.createMedia(this.play_The_track)
+    // this.curr_playing_file = this.media.create(this.play_The_track);
     // alert(this.play_The_track)
     // on occassions, the plugin only gives duration of the file if the file is played
     // at least once
@@ -154,7 +157,7 @@ async ngOnInit() {
   }
 
   setToPlayback() {
-    this.curr_playing_file = this.media.create(this.play_The_track);
+    this.curr_playing_file = this.musicService.createMedia(this.play_The_track);
     this.curr_playing_file.onStatusUpdate.subscribe((status) => {
       switch (status) {
         case 1:
@@ -265,7 +268,7 @@ async ngOnInit() {
       }
       this.id = params.get('id');
       let next = parseInt(this.id) + 1;
-      this.router.navigateByUrl('home/tabs/libraries/downloads/' + next);
+      this.router.navigateByUrl('home/tabs/libraries/downloads/download-detail/' + next);
     });
   }
   previous() {
@@ -276,7 +279,7 @@ async ngOnInit() {
       }
       this.id = params.get('id');
       let previous = parseInt(this.id) - 1;
-      this.router.navigateByUrl('home/tabs/libraries/downloads/' + previous);
+      this.router.navigateByUrl('home/tabs/libraries/downloads/download-detail/' + previous);
     });
   }
 

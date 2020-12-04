@@ -24,6 +24,7 @@ export class MusicListPage implements OnInit {
   dbo: any;
   rowsCount: any;
   count = 0;
+  size = 0;
   // count = 0;
 
   constructor(private file: File,
@@ -59,7 +60,7 @@ export class MusicListPage implements OnInit {
       if (response.rows.length > 0) {
         for (let i = 0; i < response.rows.length; i++) {
           const data = JSON.parse(response.rows.item(i).songs);
-          // alert(response.rows.item(i).songs);
+          // alert(data[0].size);
           this.lists.push({
             name: data[0].name,
             fullpath: data[0].fullPath,
@@ -151,11 +152,18 @@ export class MusicListPage implements OnInit {
             });
             this.slist = [];
             this.count = this.count + 1;
+            this.size = 0;
+            // await this.getFileSize(musics[i].nativeURL)
+            // setTimeout(() =>{ 
+            //   alert(this.size);
+            //  }, 3000);
+            // alert(size)
             this.slist.push({
                 name: mname,
                 fullpath: musics[i].fullPath,
                 nativeurl: musics[i].nativeURL,
                 id: this.count,
+                size: 0,
               });
              this.InsertOrUpdate(this.count, JSON.stringify(this.slist));
 
@@ -197,12 +205,14 @@ async getFileSize(nativeUrl) {
 
       fileEntry.getMetadata((metadata) => {
         // alert(JSON.stringify(metadata));
-        size = metadata.size;
+        this.size = metadata.size;
+        
         // console.log("image size : " + metadata.size);
         // console.log("image date : " + metadata.modificationTime);
       });
     });
-    return size;
+    // alert(size);
+    // return size;
   }
 
 async createDB() {

@@ -9,7 +9,7 @@ const routes: Routes = [
     component: LyricsPage
   },
   {
-    path: 'lyrics-detail',
+    path: 'lyrics-detail/:id',
     loadChildren: () => import('./lyrics-detail/lyrics-detail.module').then( m => m.LyricsDetailPageModule)
   }
 ];

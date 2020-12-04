@@ -8,12 +8,13 @@
 </ion-header>
 
 <ion-content class="ion-padding text-center">
-  <p >Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat nam cumque sapiente, totam laboriosam fugit necessitatibus ipsam enim harum recusandae!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum velit eos nostrum reprehenderit temporibus sunt consectetur voluptates eius modi alias?</p>
-
+  <div id="lyricsContent" >
+   {{ lyricsContent }}
+  </div>
+  
   <!-- fab placed to the bottom end -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
+    <ion-fab-button (click)="saveLyrics()" >
       <ion-icon name="download-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>

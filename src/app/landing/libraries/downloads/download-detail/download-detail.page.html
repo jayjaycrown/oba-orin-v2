@@ -3,8 +3,9 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home/tabs/libraries/downloads"></ion-back-button>
     </ion-buttons>
+    <ion-title></ion-title>
     <ion-buttons slot="end">
-      <ion-button fill="clear" color="primary" [routerLink]="['/home', 'tabs', 'libraries']" >
+      <ion-button fill="clear"  [routerLink]="['/home', 'tabs', 'libraries']" >
         <ion-icon slot="icon-only" name="home"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -37,7 +38,7 @@
       <ion-col>
         <div class="flexRow">
           <div>
-            <ion-button fill="clear" color="light" (click)="stop()"  [routerLink]="['/','home','music-detail', previousMusicId]">
+            <ion-button fill="clear" color="light" (click)="stop()"  [routerLink]="['/','home','tabs','libraries','downloads','download-detail', previousMusicId]">
               <ion-icon name="play-skip-back-outline" class="Iconsize_For_Rev"></ion-icon>
             </ion-button>
           </div>
@@ -67,14 +68,14 @@
           </div>
 
           <div>
-            <ion-button fill="clear" color="light" (click)="stop()" [routerLink]="['/','home','music-detail', nextMusicId]" >
+            <ion-button fill="clear" color="light" (click)="stop()" [routerLink]="['/','home','tabs','libraries','downloads','download-detail', nextMusicId]" >
               <ion-icon name="play-skip-forward-outline" class="Iconsize_For_Rev"></ion-icon>
             </ion-button>
           </div>
         </div>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <!-- <ion-row>
       <ion-col>
         <ion-item lines="none" class="transparent_Item">
           <ion-button slot="start" fill="clear" color="light">
@@ -85,6 +86,6 @@
           </ion-button>
         </ion-item>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
   </ion-grid>
 </ion-content>

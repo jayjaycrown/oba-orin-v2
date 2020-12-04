@@ -1,9 +1,9 @@
+import { MusicserviceService } from './../../../../home/music-list/musicservice.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaObject, Media } from '@ionic-native/media/ngx';
 import { Platform, LoadingController, NavController } from '@ionic/angular';
 // import { Music } from '../music.model';
-// import { MusicserviceService } from '../musicservice.service';
 import { Storage } from '@ionic/storage';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
@@ -51,7 +51,7 @@ export class MusicDetailPage implements OnInit {
   constructor(
     public platform: Platform,
     private media: Media,
-    // private musicService: MusicserviceService,
+    private musicService: MusicserviceService,
     private route: ActivatedRoute,
     private navCtrl: NavController,
     private loadingCtrl: LoadingController,
@@ -86,6 +86,9 @@ export class MusicDetailPage implements OnInit {
       // alert(this.id);
       // alert(JSON.stringify(this.musicList));
       await this.GetTable(this.id);
+      if(this.data == null){
+        this.router.navigate(['/home/music-list/']);
+      }
       // alert(this.data);
       let selected_song = JSON.parse(this.data);
       // alert(selected_song[0].fullpath);
@@ -128,7 +131,8 @@ export class MusicDetailPage implements OnInit {
   }
   getDuration() {
     // alert(this.title);
-    this.curr_playing_file = this.media.create(this.play_The_track);
+    //this.curr_playing_file = this.media.create(this.play_The_track);
+    this.curr_playing_file = this.musicService.createMedia(this.play_The_track)
     // alert(this.play_The_track)
     // on occassions, the plugin only gives duration of the file if the file is played
     // at least once
@@ -160,7 +164,7 @@ export class MusicDetailPage implements OnInit {
   }
 
   setToPlayback() {
-    this.curr_playing_file = this.media.create(this.play_The_track);
+    this.curr_playing_file = this.musicService.createMedia(this.play_The_track)
     this.curr_playing_file.onStatusUpdate.subscribe((status) => {
       switch (status) {
         case 1:
@@ -303,11 +307,11 @@ export class MusicDetailPage implements OnInit {
         // db.executeSql("INSERT INTO songlist VALUES ('[]')");
       }
         // alert('Executed SQL')
-    ).catch(e =>
-        alert(JSON.stringify(e))
+    ).catch(e =>{}
+        // alert(JSON.stringify(e))
         );
   })
-      .catch(e => alert(JSON.stringify(e)));
+      // .catch(e => alert(JSON.stringify(e)));
   }
 
   async GetTable(id) {
@@ -317,8 +321,11 @@ export class MusicDetailPage implements OnInit {
       // alert(response.rows.item(0).songs);
       this.data = response.rows.item(0).songs;
       // return response.rows.item(0).songs;
-    }).catch(e =>
-        alert(JSON.stringify(e))
+    }).catch(e =>{
+      this.navCtrl.navigateBack('/home/tabs/libraries/music-list');
+      // alert(e);
+    }
+        
         );
   }
 }

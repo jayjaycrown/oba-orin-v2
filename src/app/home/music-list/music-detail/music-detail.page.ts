@@ -317,8 +317,10 @@ export class MusicDetailPage implements OnInit {
       // alert(response.rows.item(0).songs);
       this.data = response.rows.item(0).songs;
       // return response.rows.item(0).songs;
-    }).catch(e =>
+    }).catch(e =>{
         alert(JSON.stringify(e))
+        // this.router.navigate(['/home/music-detail/']);
+      }
         );
   }
 }

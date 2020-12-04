@@ -12,7 +12,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-list>
-    <ion-item *ngFor="let item of lists">
+    <ion-item *ngFor="let item of lists" [routerLink]="['/home', 'tabs', 'libraries', 'downloads', 'download-detail', item.id]"> 
       <ion-icon slot="start" name="musical-notes-outline"></ion-icon>
       <ion-label class="ion-nowrap"> {{item.name}} </ion-label>
     </ion-item>

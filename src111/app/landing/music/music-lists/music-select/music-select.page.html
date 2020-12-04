@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/tabs/music/music-lists"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Music Title</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <div class="fixedContent">
+    <ion-thumbnail ></ion-thumbnail>
+  </div>
+
+  <div class="padding_Top">
+    <div class="fixedContent">
+      <ion-text color="light"> Title </ion-text>
+      <p text-uppercase color="light" class="pUser microsoft marquee ">PoweredByTesSal</p>
+    </div>
+    <ion-range min="0" max="20"  color="light">
+    </ion-range>
+    <div class="rangePlaytime">
+      <ion-label class="startTime" color="light"> display_position</ion-label>
+      <ion-label class="endTime" color="light" >--:--</ion-label>
+      <ion-label class="endTime" color="light" > display_duration</ion-label>
+    </div>
+
+  </div>
+
+  <ion-grid>
+    <ion-row justify-content-center align-items-center style="height: 100%">
+      <ion-col>
+        <div class="flexRow">
+          <div>
+             <ion-button slot="start" fill="clear" color="light">
+            <ion-icon name="flash" expand="icon-only" class="Iconsize_For_Rev"></ion-icon>
+          </ion-button>
+          </div>
+
+          <div>
+            <ion-button fill="clear" color="light">
+              <ion-icon name="play-back-outline"></ion-icon>
+            </ion-button>
+          </div>
+
+          <div>
+            <ion-button class="play_pause_btn"  color="light"  justify-content-center
+               align-items-center>
+              <ion-icon name="play" class="darkColor"></ion-icon>
+            </ion-button>
+
+            <!-- <ion-button class="play_pause_btn"  color="light"  justify-content-center
+               align-items-center>
+              <ion-icon name="pause" class="darkColor"></ion-icon>
+            </ion-button> -->
+          </div>
+
+          <div>
+            <ion-button fill="clear" color="light" >
+              <ion-icon name="play-forward-outline" class="Iconsize_For_Rev"></ion-icon>
+            </ion-button>
+          </div>
+
+          <div>
+            <ion-button slot="end" fill="clear" color="light">
+            <ion-icon name="download-outline" expand="icon-only" class="Iconsize_For_Rev"></ion-icon>
+          </ion-button>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row>
+      <ion-col>
+        <ion-item lines="none" class="transparent_Item">
+          <ion-button slot="start" fill="clear" color="light">
+            <ion-icon name="flash" expand="icon-only" class="Iconsize_For_Rev"></ion-icon>
+          </ion-button>
+          <ion-button slot="end" fill="clear" color="light">
+            <ion-icon name="share" expand="icon-only" class="Iconsize_For_Rev"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row> -->
+  </ion-grid>
+</ion-content>

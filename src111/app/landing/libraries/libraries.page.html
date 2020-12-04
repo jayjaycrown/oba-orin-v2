@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Library</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row >
+      <ion-col >
+        <ion-card [routerLink]="['/','home', 'tabs', 'libraries', 'music-list']">
+          <ion-card-content>
+            <h3> <ion-icon name="musical-note-outline"></ion-icon></h3>
+            <h3>Local Music</h3>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col class="ion-align-self-center">
+        <ion-card [routerLink]="['/','home','tabs', 'libraries', 'downloads']">
+          <ion-card-content>
+            <h3> <ion-icon name="download-outline"></ion-icon></h3>
+            <h3>My Downloads</h3>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card [routerLink]="['/','home', 'tabs', 'libraries', 'lyrics']">
+          <ion-card-content>
+            <h3> <ion-icon name="reader-outline"></ion-icon></h3>
+            <h3>Saved Lyrics</h3>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card (click)="comingSoon()">
+          <ion-card-content>
+            <h3> <ion-icon name="list-circle-outline"></ion-icon></h3>
+            <h3>Playlists</h3>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="ads"></div>
+</ion-content>

@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/tabs/libraries"></ion-back-button>
+    </ion-buttons>
+    <ion-searchbar placeholder='Search...' ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="">
+    <ion-list>
+      <ion-item *ngFor="let music of lists"  [routerLink]="['/','home', 'tabs', 'libraries', 'music-list', 'music-detail', music.id]">
+        <!-- <ion-thumbnail slot="start">
+          <ion-img [src]="music.banner"></ion-img> 
+        </ion-thumbnail> -->
+        <ion-icon slot="start" name="musical-notes-outline"></ion-icon>
+        <ion-label>
+          <!-- {{ music }} -->
+          <!-- <h3 class="no-wrap"> {{ music.id }} </h3> -->
+          <h3 class="no-wrap"> {{ music.name }} </h3>
+          <!-- <p> {{ music.author }} </p>  -->
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+ 
+
+</ion-content>
