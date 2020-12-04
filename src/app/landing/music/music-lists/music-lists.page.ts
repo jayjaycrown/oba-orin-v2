@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+import { MusicserviceService } from '../../../home/music-list/musicservice.service';
 import { APIServiceService } from '../../../service/apiservice.service';
 
 @Component({
@@ -14,7 +15,13 @@ export class MusicListsPage implements OnInit {
   test;
   musicList;
   list = [];
-  constructor(private router: Router, private api: APIServiceService,  public loadingCtrl: LoadingController) { }
+  constructor(
+    private router: Router,
+    private api: APIServiceService,
+    public loadingCtrl: LoadingController,
+    private musicService: MusicserviceService
+  )
+  { }
 
   ngOnInit() {
   }
@@ -44,9 +51,10 @@ export class MusicListsPage implements OnInit {
       for (const item of this.musicList) {
         this.list.push({
           title: item.title,
+          tag: item.tag,
           url: item.url,
           type: item.type,
-          id: window.btoa(encodeURIComponent(item.title) + '~' + item.url + '~' + item.type)
+          id: window.btoa(encodeURIComponent(item.title) + '~' + item.url + '~' + item.type + '~' + item.tag)
         });
         // alert(item.title + '~' + item.url + '~' + item.type);
       }

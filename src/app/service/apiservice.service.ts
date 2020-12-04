@@ -25,7 +25,7 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class APIServiceService {
-  
+
   // tslint:disable-next-line: variable-name
   private _refreshNeded$ = new Subject<void>();
   refreshNeded$() {
@@ -39,29 +39,29 @@ export class APIServiceService {
     private platform: Platform
   ) {
     this.platform.ready().then(() => {
-      this.getImei();
+      // this.getImei();
     });
   }
-  async getImei() {
-    const { hasPermission } = await this.androidPermissions.checkPermission(
-      this.androidPermissions.PERMISSION.READ_PRIVILEGED_PHONE_STATE
-    );
+  // async getImei() {
+  //   const { hasPermission } = await this.androidPermissions.checkPermission(
+  //     this.androidPermissions.PERMISSION.READ_PRIVILEGED_PHONE_STATE
+  //   );
 
-    if (!hasPermission) {
-      const result = await this.androidPermissions.requestPermission(
-        this.androidPermissions.PERMISSION.READ_PRIVILEGED_PHONE_STATE
-      );
+  //   if (!hasPermission) {
+  //     const result = await this.androidPermissions.requestPermission(
+  //       this.androidPermissions.PERMISSION.READ_PRIVILEGED_PHONE_STATE
+  //     );
 
-      if (!result.hasPermission) {
-        throw new Error('Permissions required');
-      }
+  //     if (!result.hasPermission) {
+  //       throw new Error('Permissions required');
+  //     }
 
-      // ok, a user gave us permission, we can get him identifiers after restart app
-      return;
-    }
+  //     // ok, a user gave us permission, we can get him identifiers after restart app
+  //     return;
+  //   }
 
-    return this.uid.IMEI;
-  }
+  //   return this.uid.IMEI;
+  // }
 
   getSearchLyrics(lyrics) {
     httpOptions.headers = httpOptions.headers.set(
@@ -113,6 +113,22 @@ export class APIServiceService {
     );
   }
 
+
+  getSearchMusicDetails(title, tag, url, type) {
+    httpOptions.headers = httpOptions.headers.set(
+      'Access-Control-Allow-Origin',
+      '*'
+    );
+    httpOptions.headers = httpOptions.headers.set(
+      'Content-Type',
+      'text/html'
+    );
+    const urls = `http://teshost.com/obaorin/app_api?method=DownloadMusic&url=${url}&type=${type}&tag=3${tag}&title=${title}`;
+    return this.http.post(urls, httpOptions, {responseType: 'text'}).pipe(
+      retry(3),
+      catchError(this.handleError('getSearchMusicDetails'))
+    );
+  }
 
   handleError<T>(operation = 'operation', result?: T) {
     let errorMessage = 'Unknown error!';

@@ -11,11 +11,11 @@ import { Platform } from '@ionic/angular';
 export class LibrariesPage implements OnInit {
 
   constructor(private apiService: APIServiceService, private platform: Platform) {
-    this.platform.ready().then(() => {
-      this.apiService.getImei().then(res => {
-        alert(res);
-      });
-    });
+    // this.platform.ready().then(() => {
+    //   // this.apiService.getImei().then(res => {
+    //     // alert(res);
+    //   });
+    // });
   }
 
   ngOnInit() {

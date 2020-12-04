@@ -25,6 +25,7 @@ export class MusicserviceService {
   data: any;
   playing: MediaObject;
   player: MediaObject;
+  // tslint:disable-next-line: variable-name
   selected_song: any;
   // tslint:disable-next-line: variable-name
   curr_playing_file: MediaObject;
@@ -46,6 +47,7 @@ export class MusicserviceService {
   display_position: any = '00:00';
   // tslint:disable-next-line: variable-name
   display_duration: any = '00:00';
+  // tslint:disable-next-line: variable-name
   current_id: any;
   id: any;
   dbo: any;
@@ -90,6 +92,7 @@ export class MusicserviceService {
   }
 
 
+  // tslint:disable-next-line: variable-name
   createMedia(play_The_track): MediaObject {
     // try {
     //   this.stopv2();

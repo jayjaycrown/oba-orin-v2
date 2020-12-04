@@ -9,7 +9,7 @@ const routes: Routes = [
     component: MusicListsPage
   },
   {
-    path: 'music-select',
+    path: 'music-select/:id',
     loadChildren: () => import('./music-select/music-select.module').then( m => m.MusicSelectPageModule)
   }
 ];
