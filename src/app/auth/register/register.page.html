@@ -2,24 +2,55 @@
   <div class="avatar">
     <ion-img src="assets/img/logo.png"></ion-img>
   </div>
+ 
   <div class="content">
+    <form #form="ngForm" (ngSubmit)="registerForm(form)">
      <ion-item-divider>
        <h4>Create an Account</h4>
      </ion-item-divider>
+     <ion-item>
+      <ion-label position="floating">Name</ion-label>
+      <ion-input type='text' [(ngModel)]="reg.name" name="name" required #nameCtrl="ngModel"></ion-input>
+    </ion-item>
+    <!-- <ion-item *ngIf="!nameCtrl.valid && nameCtrl.touched">
+      <ion-text color="danger">Name is required</ion-text>
+    </ion-item> -->
+
     <ion-item>
       <ion-label position="floating">Email</ion-label>
-      <ion-input type='email'></ion-input>
+      <ion-input type='email' [(ngModel)]="reg.email" name="email" required #emailCtrl="ngModel"></ion-input>
     </ion-item>
+    <!-- <ion-item *ngIf="!emailCtrl.valid && emailCtrl.touched">
+      <ion-text color="danger">Email is required</ion-text>
+    </ion-item> -->
+
+  
+    <ion-item>
+      <ion-label position="floating">Phone Number</ion-label>
+      <ion-input type='number' [(ngModel)]="reg.phone" name="phone" required #phoneCtrl="ngModel"> </ion-input>
+    </ion-item>
+    <!-- <ion-item *ngIf="!phoneCtrl.valid && phoneCtrl.touched">
+      <ion-text color="danger">Phone Number is required</ion-text>
+    </ion-item> -->
+
+
     <ion-item>
       <ion-label position="floating">Password</ion-label>
-      <ion-input type='password'></ion-input>
+      <ion-input type='password' [(ngModel)]="reg.password" name="password" required #passwordCtrl="ngModel"></ion-input>
     </ion-item>
+    <!-- <ion-item *ngIf="!passwordCtrl.valid && passwordCtrl.touched">
+      <ion-text color="danger">Password is required</ion-text>
+    </ion-item> -->
+
+
      <ion-item>
        <ion-label position="floating">Confirm Password</ion-label>
-       <ion-input type='password'></ion-input>
+       <ion-input type='password' required></ion-input>
      </ion-item>
 
-    <ion-button color="primary" expand="block">Sign Up</ion-button>
+    <ion-button color="primary" type="submit" expand="block" [disabled]="!form.valid">Sign Up</ion-button>
+    </form>
+
     <br>
 
     <p style="text-align: center;">Existing user? <span><a routerLink="/login" router-direction='back'>Sign

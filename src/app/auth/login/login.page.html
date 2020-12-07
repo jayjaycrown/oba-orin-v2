@@ -6,18 +6,22 @@
     <ion-item-divider>
       <h4>Login to your Account</h4>
     </ion-item-divider>
+    <form #form="ngForm" (ngSubmit)="LoginForm(form)">
     <ion-item>
       <ion-label position="floating">Email</ion-label>
-      <ion-input type='email'></ion-input>
+      <ion-input type='text' [(ngModel)]="login.username" name="username" required #usernameCtrl="ngModel"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type='password'></ion-input>
+      <ion-label position="floating" >Password</ion-label>
+      <ion-input type='password' [(ngModel)]="login.password" name="password" required #passwordCtrl="ngModel"></ion-input>
     </ion-item>
+  
     <div class="forgot">
       <a href="">Forgot Password?</a>
     </div>
-    <ion-button color="primary" expand="block" routerLink='/home/tabs'>Sign In</ion-button>
+    <ion-button color="primary" type="submit" expand="block" [disabled]="!form.valid" >Sign In</ion-button>
+  </form>
+    <!-- routerLink='/home/tabs' -->
     <br>
 
     <p style="text-align: center;">New user? <span><a routerLink="/register">Sign up</a></span></p>

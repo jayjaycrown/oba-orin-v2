@@ -64,10 +64,10 @@ export class DownloadsPage implements OnInit {
 
   }
   async getAllMusic() {
-    await this.DeleteTable('downloadList');
+    // await this.DeleteTable('downloadList');
     // alert(1);
     // await this.UpdateTable('[]');
-    await this.file.listDir(this.file.externalRootDirectory, 'Xender').then(async (data) => {
+    await this.file.listDir(this.file.externalRootDirectory, 'obaorin').then(async (data) => {
       // console.log(data);
       // alert(JSON.stringify(data));
       // alert(data.length);

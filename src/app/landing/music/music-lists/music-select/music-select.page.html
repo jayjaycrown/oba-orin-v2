@@ -1,9 +1,10 @@
 <ion-content>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-button routerLink="/home/tabs/music/music-lists">
+      <ion-button (click)="back()" >
         <ion-icon slot="icon-only" ios="arrow-back-outline" md="arrow-back-outline"></ion-icon>
       </ion-button>
+      <!-- <ion-back-button></ion-back-button> -->
     </ion-buttons>
     <ion-buttons slot="secondary">
       <ion-button routerLink="/home/tabs/music" >
@@ -36,8 +37,8 @@
       <ion-col>
         <div class="flexRow">
           <div>
-            <ion-button fill="clear" color="light" (click)="stop()"  [routerLink]="['/','home','tabs','libraries','music-list', 'music-detail', previousMusicId]">
-              <ion-icon name="play-skip-back-outline" class="Iconsize_For_Rev"></ion-icon>
+            <ion-button fill="clear" color="light" (click)="stop()">
+              <!-- <ion-icon name="" class="Iconsize_For_Rev"></ion-icon> -->
             </ion-button>
           </div>
 
@@ -66,8 +67,8 @@
           </div>
 
           <div>
-            <ion-button fill="clear" color="light" [routerLink]="['/','home','tabs','libraries','music-list', 'music-detail', nextMusicId]" >
-              <ion-icon name="play-skip-forward-outline" class="Iconsize_For_Rev"></ion-icon>
+            <ion-button fill="clear" color="light" (click)="downloadDoc()"  >
+              <ion-icon name="download-outline" class="Iconsize_For_Rev"></ion-icon>
             </ion-button>
           </div>
         </div>

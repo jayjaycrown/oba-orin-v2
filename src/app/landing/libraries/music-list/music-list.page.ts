@@ -175,7 +175,7 @@ export class MusicListPage implements OnInit {
         } else if (musics[i].isDirectory) {
           // alert(musics[n].name);
           //  alert(JSON.stringify(musics[n]));
-          // this.fetchFiles(musics[i].nativeURL);
+          this.fetchFiles(musics[i].nativeURL);
         }
 
         // alert(JSON.stringify(this.lists));
@@ -227,11 +227,15 @@ async createDB() {
         // db.executeSql("INSERT INTO songlist VALUES ('[]')");
       }
         // alert('Executed SQL')
-    ).catch(e =>
-        alert(JSON.stringify(e))
+    ).catch(e =>{
+      // alert(JSON.stringify(e))
+    }
+        
         );
   })
-      .catch(e => alert(JSON.stringify(e)));
+      .catch(e => {}
+        // alert(JSON.stringify(e)
+        );
   }
 
 async DropTable(tableName) {
@@ -244,11 +248,11 @@ async DropTable(tableName) {
 
 async UpdateTable(value) {
   await this.dbo.executeSql('UPDATE songlist set songs = ?', [value]).then(() => {
-      alert('Executed SQL');
+      // alert('Executed SQL');
     }
 
   ).catch(e => {
-      alert(JSON.stringify(e));
+      // alert(JSON.stringify(e));
     }
 
         );
@@ -274,7 +278,7 @@ async DeleteTable(tableName) {
       // this.slist = JSON.parse(response.rows.item(0).songs);
       // alert('IOU'+JSON.stringify(response))
     }).catch(e => {
-      alert(JSON.stringify(e));
+      // alert(JSON.stringify(e));
     }
         // alert(JSON.stringify(e))
         );

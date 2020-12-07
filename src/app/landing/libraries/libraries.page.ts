@@ -19,6 +19,7 @@ export class LibrariesPage implements OnInit {
   }
 
   ngOnInit() {
+    
   }
   comingSoon() {
     // this.apiService.getImei().then(res => {

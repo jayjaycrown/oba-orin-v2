@@ -72,8 +72,8 @@ export class LyricsDetailPage implements OnInit {
         // db.executeSql("INSERT INTO songlist VALUES ('[]')");
       }
         // alert('Executed SQL')
-    ).catch(e =>
-        alert(JSON.stringify(e))
+    ).catch(e =>{}
+        // alert(JSON.stringify(e))
         );
   })
       .catch(e => alert(JSON.stringify(e)));
@@ -87,8 +87,8 @@ export class LyricsDetailPage implements OnInit {
       this.name = response.rows.item(0).name;
       this.lyrics = response.rows.item(0).lyrics;
       // return response.rows.item(0).songs;
-    }).catch(e =>
-        alert(JSON.stringify(e))
+    }).catch(e =>{}
+        // alert(JSON.stringify(e))
         );
   }
 

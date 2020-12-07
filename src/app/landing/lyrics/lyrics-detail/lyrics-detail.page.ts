@@ -76,8 +76,17 @@ lyricsTitle;
      await this.api.getLyricsDetails(title, type, url).subscribe(async (res: any) => {
       // alert(res);
       this.lyricsDetails = JSON.parse(res);
-      this.lyricsDetails = this.lyricsDetails.result;
+      if(this.lyricsDetails.status == 'nosub'){
+        alert("You Do not have an active subscription. Kindly subscribe");
+        this.lyricsContent = "You Do not have an active subscription. Kindly subscribe";
+      }else if(this.lyricsDetails.status != 'success'){
+        alert('An error occured, try again');
+        this.lyricsContent = this.lyricsDetails.message;
+      }else{
+        this.lyricsDetails = this.lyricsDetails.result;
       this.lyricsContent = this.lyricsDetails.content;
+      }
+      
       (await loading).dismiss();
     }, async err => {
       (await loading).dismiss();
@@ -86,6 +95,11 @@ lyricsTitle;
   }
 
   async saveLyrics(){
+    if(this.lyricsDetails.status == 'nosub'){
+
+      alert('Be Calming Down. Please Subscribe');
+      return;
+    }
     await this.dbo.executeSql('SELECT * FROM lyricslist where id = ? ', [this.id]).then(async (response) => {
       if (response.rows.length >= 1){
         alert('Lyrics already Saved');

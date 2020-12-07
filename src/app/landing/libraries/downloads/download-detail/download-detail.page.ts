@@ -1,3 +1,4 @@
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 import { Component, OnInit } from '@angular/core';
 import { MediaObject, Media } from '@ionic-native/media/ngx';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,7 +8,8 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { Storage } from '@ionic/storage';
 import { MusicserviceService } from '../../../../home/music-list/musicservice.service';
-
+import { Plugins } from '@capacitor/core';
+const { CapacitorMusicControls } = Plugins;
 @Component({
   selector: 'app-download-detail',
   templateUrl: './download-detail.page.html',
@@ -47,6 +49,7 @@ export class DownloadDetailPage implements OnInit {
   id: any;
   dbo: any;
   musicList: any;
+  background;
   constructor(private route: ActivatedRoute,
               private router: Router,
               private musicService: MusicserviceService,
@@ -56,7 +59,9 @@ export class DownloadDetailPage implements OnInit {
               private media: Media,
               private navCtrl: NavController,
               private sqlite: SQLite,
-              private sqlitePorter: SQLitePorter)
+              private sqlitePorter: SQLitePorter,
+              private backgroundMode: BackgroundMode
+              )
   {
      this.platform.ready().then(() => {
       // this.createDB();
@@ -65,6 +70,16 @@ export class DownloadDetailPage implements OnInit {
     });
    }
 async ngOnInit() {
+  // alert('init-downloadmusicdetail')
+  this.backgroundMode.enable();
+    this.backgroundMode.on("activate").subscribe(()=>{
+      this.background  = true;
+      // alert(this.background);
+    });
+    this.backgroundMode.on("deactivate").subscribe(()=>{
+      this.background  = false;
+      // alert(this.background);
+    });
     // alert(this.musicList);
     await this.createDB();
     this.route.paramMap.subscribe(async (params) => {
@@ -82,10 +97,13 @@ async ngOnInit() {
       // alert(this.id);
       // alert(JSON.stringify(this.musicList));
       await this.GetTable(this.id);
+      if(this.data == null){
+        this.router.navigate(['/home/tabs/libraries/downloads']);
+      }
       // alert(this.data);
       let selected_song = JSON.parse(this.data);
       // alert(selected_song[0].fullpath);
-      this.title = selected_song[0].name;
+      this.title = decodeURI(selected_song[0].name);
       this.play_The_track = selected_song[0].fullpath;
       this.prepareAudioFile();
       this.loadingCtrl
@@ -114,10 +132,15 @@ async ngOnInit() {
       setTimeout(() => {
         // alert(1);
         // alert(this.display_duration);
-        if (this.display_duration === '00:00') {
-          this.next();
-        } else {
-          this.play();
+        if(!this.background){
+          if (this.display_duration === '00:00') {
+            // this.next();
+          } else if(this.display_position == "00:00") {
+            this.play();
+          }else{
+            location.reload();
+            
+          }
         }
       }, 1000);
     });
@@ -158,6 +181,47 @@ async ngOnInit() {
 
   setToPlayback() {
     this.curr_playing_file = this.musicService.createMedia(this.play_The_track);
+    CapacitorMusicControls.create({
+      track       : this.title,		// optional, default : ''
+      artist      : 'ObaOrin',						// optional, default : ''
+      album       : '',     // optional, default: ''
+       cover       : '',		// optional, default : nothing
+      // cover can be a local path (use fullpath 'file:///storage/emulated/...', or only 'my_image.jpg' if my_image.jpg is in the www folder of your app)
+      //			 or a remote url ('http://...', 'https://...', 'ftp://...')
+    
+      // hide previous/next/close buttons:
+      hasPrev   : false,		// show previous button, optional, default: true
+      hasNext   : false,		// show next button, optional, default: true
+      hasClose  : true,		// show close button, optional, default: false
+    
+      // iOS only, optional
+      duration : '', // optional, default: 0
+      elapsed : '', // optional, default: 0
+        hasSkipForward : true, //optional, default: false. true value overrides hasNext.
+        hasSkipBackward : true, //optional, default: false. true value overrides hasPrev.
+        skipForwardInterval : 15, //optional. default: 15.
+      skipBackwardInterval : 15, //optional. default: 15.
+      hasScrubbing : false, //optional. default to false. Enable scrubbing from control center progress bar 
+    
+        // Android only, optional
+        isPlaying   : false,							// optional, default : true
+        dismissable : true,							// optional, default : false
+      // text displayed in the status bar when the notification (and the ticker) are updated
+      ticker	  : 'Now playing "'+this.title+'"',
+      //All icons default to their built-in android equivalents
+      //The supplied drawable name, e.g. 'media_play', is the name of a drawable found under android/res/drawable* folders
+      playIcon: 'media_play',
+      pauseIcon: 'media_pause',
+      prevIcon: 'media_prev',
+      nextIcon: 'media_next',
+      closeIcon: 'media_close',
+      notificationIcon: 'notification'
+    });
+    CapacitorMusicControls.addListener('controlsNotification', (info: any) => {
+      console.log('controlsNotification was fired');
+      console.log(info);
+      this.handleControlsEvent(info);
+  });
     this.curr_playing_file.onStatusUpdate.subscribe((status) => {
       switch (status) {
         case 1:
@@ -177,7 +241,67 @@ async ngOnInit() {
     this.is_ready = true;
     this.getAndSetCurrentAudioPosition();
   }
+    handleControlsEvent(action){
 
+      console.log("hello from handleControlsEvent")
+      const message = action.message;
+    
+      console.log("message: " + message)
+    
+      switch(message) {
+        case 'music-controls-next':
+          // next
+          this.next();
+          break;
+        case 'music-controls-previous':
+          // previous
+          this.previous();
+          break;
+        case 'music-controls-pause':
+          // paused
+          this.pause();
+          break;
+        case 'music-controls-play':
+          // resumed
+          this.play();
+          break;
+        case 'music-controls-destroy':
+          // this.stop();
+          // this.setToPlayback();
+          // this.ngOnInit();
+          // controls were destroyed
+          break;
+    
+        // External controls (iOS only)
+        case 'music-controls-toggle-play-pause' :
+          // do something
+          break;
+        case 'music-controls-seek-to':
+          // do something
+          break;
+        case 'music-controls-skip-forward':
+          // Do something
+          break;
+        case 'music-controls-skip-backward':
+          // Do something
+          break;
+    
+        // Headset events (Android only)
+        // All media button events are listed below
+        case 'music-controls-media-button' :
+          // Do something
+          break;
+        case 'music-controls-headset-unplugged':
+          // Do something
+          break;
+        case 'music-controls-headset-plugged':
+          // Do something
+          break;
+        default:
+          break;
+      }
+    
+}
   getAndSetCurrentAudioPosition() {
     const diff = 1;
     const self = this;
@@ -188,9 +312,20 @@ async ngOnInit() {
         if (position >= 0 && position < self.duration) {
           if (Math.abs(last_position - position) >= diff) {
             // set position
-            self.curr_playing_file.seekTo(last_position * 1000);
+            // self.curr_playing_file.seekTo(last_position * 1000);
+            if(Number.isInteger(last_position)){
+              // alert(last_position);
+              self.curr_playing_file.seekTo(last_position * 1000);
+            }else{
+              self.position = position;
+              this.display_position = this.toHHMMSS(self.position);
+            }
           } else {
             // update position for display
+            CapacitorMusicControls.updateIsPlaying({
+              isPlaying: this.is_playing, // affects Android only
+              elapsed:  this.toHHMMSS(self.position)// affects iOS Only
+          });
             self.position = position;
             this.display_position = this.toHHMMSS(self.position);
           }
@@ -198,6 +333,18 @@ async ngOnInit() {
           self.stop();
           self.setToPlayback();
           this.next();
+          if(!this.background){
+            
+            this.next();
+          
+        // this.next_interval =setInterval(()=>{
+        //   if(this.display_position == '00:00'){
+        //   clearInterval(this.next_interval);
+        //   this.next();
+        //   }
+        // },100)
+        
+        }
         }
       });
     }, 100);
@@ -223,13 +370,17 @@ async ngOnInit() {
     const numberRange = this.position;
     switch (action) {
       case 'back':
-        this.position = numberRange < step ? 0.001 : numberRange - step;
+        // alert(Math.ceil(numberRange));
+        this.position = Math.floor(numberRange) < step ? 0.001 : numberRange - step;
+        this.position = Math.floor(this.position);
+        // alert(this.position);
         break;
       case 'forward':
         this.position =
-          numberRange + step < this.duration
-            ? numberRange + step
+        Math.ceil(numberRange) + step < this.duration
+            ? Math.ceil(numberRange) + step
             : this.duration;
+            this.position = Math.floor(this.position);
         break;
       default:
         break;
@@ -296,8 +447,8 @@ async ngOnInit() {
         // db.executeSql("INSERT INTO songlist VALUES ('[]')");
       }
         // alert('Executed SQL')
-    ).catch(e =>
-        alert(JSON.stringify(e))
+    ).catch(e =>{}
+        // alert(JSON.stringify(e))
         );
   })
       .catch(e => alert(JSON.stringify(e)));
@@ -306,8 +457,8 @@ async ngOnInit() {
   async GetTable(id) {
     await this.dbo.executeSql('SELECT * FROM downloadList where id = ?', [id]).then(async (response) => {
       this.data = response.rows.item(0).songs;
-    }).catch(e =>
-        alert(JSON.stringify(e))
+    }).catch(e =>{}
+        // alert(JSON.stringify(e))
         );
   }
 }

@@ -16,6 +16,7 @@ export class MusicserviceService {
   globalCheck: any;
   nextMusicId: any;
   previousMusicId: any;
+  mloaded: false;
   // musicLists: Music[];
   title: any;
   artist: any;
@@ -25,6 +26,7 @@ export class MusicserviceService {
   data: any;
   playing: MediaObject;
   player: MediaObject;
+  running = 'all';
   // tslint:disable-next-line: variable-name
   selected_song: any;
   // tslint:disable-next-line: variable-name
@@ -99,6 +101,12 @@ export class MusicserviceService {
     // } catch (error) {
     //   alert(error);
     // }
+    try {
+      this.curr_playing_file.stop();
+      this.curr_playing_file.release();
+    } catch (error) {
+      
+    }
     if ( this.curr_playing_file != null ) {
       this.curr_playing_file.stop();
       this.curr_playing_file.release();

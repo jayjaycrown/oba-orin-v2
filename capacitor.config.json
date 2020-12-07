@@ -7,11 +7,17 @@
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 0
+    },
+    "PushNotifications": {
+      "presentationOptions": [
+        "badge",
+        "sound",
+        "alert"
+      ]
     }
   },
   "cordova": {},
   "server": {
-    "url": "http://192.168.43.102:8100",
-    "cleartext": true
+    "url": "http://192.168.60.73:8100"
   }
 }

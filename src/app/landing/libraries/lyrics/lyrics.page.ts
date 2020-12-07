@@ -57,7 +57,10 @@ export class LyricsPage implements OnInit {
           alert('No Lyrics Available');
       }
       // alert(JSON.stringify(response));
-    }) .catch(e => alert(JSON.stringify(e)));
+    }) .catch(e =>{}
+      //  alert(JSON.stringify(e))
+       
+       );
 
   }
 
@@ -101,8 +104,8 @@ async createDB() {
         // db.executeSql("INSERT INTO lyricslist VALUES ('[]')");
       }
         // alert('Executed SQL')
-    ).catch(e =>
-        alert(JSON.stringify(e))
+    ).catch(e =>{}
+        // alert(JSON.stringify(e))
         );
   })
       .catch(e => alert(JSON.stringify(e)));
@@ -118,11 +121,11 @@ async DropTable(tableName) {
 
 async UpdateTable(value) {
   await this.dbo.executeSql('UPDATE lyricslist set lyrics = ?', [value]).then(() => {
-      alert('Executed SQL');
+      // alert('Executed SQL');
     }
 
   ).catch(e => {
-      alert(JSON.stringify(e));
+      // alert(JSON.stringify(e));
     }
 
         );
@@ -148,7 +151,7 @@ async DeleteTable(tableName) {
       // this.slist = JSON.parse(response.rows.item(0).lyrics);
       // alert('IOU'+JSON.stringify(response))
     }).catch(e => {
-      alert(JSON.stringify(e))
+      // alert(JSON.stringify(e))
     }
         // alert(JSON.stringify(e))
         );

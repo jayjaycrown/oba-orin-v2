@@ -33,37 +33,20 @@
 
   <div [ngSwitch]="type" class="testList">
     <ion-list *ngSwitchCase="'featured'">
-      <ion-item >
+      <ion-item *ngFor="let item of featuredList" [routerLink]="['/','home','tabs',  'music', 'music-lists', 'music-select', item.id ]">
+        <!-- <ion-icon slot="start" name="musical-notes-outline"></ion-icon> -->
         <ion-label>
-          test1
-        </ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          test2
-        </ion-label>
-      </ion-item>
-      <ion-item >
-        <ion-label>
-          test1
-        </ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          test2
+          <ion-text [innerHTML]="item.title"></ion-text>
         </ion-label>
       </ion-item>
     </ion-list>
 
     <ion-list *ngSwitchCase="'mostDownloaded'">
-      <ion-item >
+      <ion-item *ngFor="let item of downloadedList" [routerLink]="['/','home','tabs',  'music', 'music-lists', 'music-select', item.id ]">
+        <!-- <ion-icon slot="start" name="musical-notes-outline"></ion-icon> -->
         <ion-label>
-          testing 1
-        </ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          testing 2
+          <ion-text [innerHTML]="item.title"></ion-text> 
+          <ion-badge slot="end" color="primary">{{item.no_downloads}}</ion-badge>
         </ion-label>
       </ion-item>
     </ion-list>
