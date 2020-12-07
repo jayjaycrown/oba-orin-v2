@@ -46,8 +46,10 @@
         <!-- <ion-icon slot="start" name="musical-notes-outline"></ion-icon> -->
         <ion-label>
           <ion-text [innerHTML]="item.title"></ion-text> 
-          <ion-badge slot="end" color="primary">{{item.no_downloads}}</ion-badge>
         </ion-label>
+        <ion-badge slot="end" color="primary">
+            {{item.no_downloads}}
+          </ion-badge>
       </ion-item>
     </ion-list>
   </div>
