@@ -8,7 +8,8 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-list>
+  <div class="border">
+    <ion-list>
     <ion-item *ngFor="let item of list" [routerLink]="['/','home','tabs',  'music', 'music-lists', 'music-select', item.id ]">
       <ion-icon slot="start" name="musical-notes-outline"></ion-icon>
       <ion-label>
@@ -16,4 +17,6 @@
       </ion-label>
     </ion-item>
   </ion-list>
+  </div>
+  
 </ion-content>
