@@ -18,7 +18,7 @@ export class AccountPage implements OnInit {
   phone;
   account_number;
   subscription_expiry;
-  subscribeText = "Active Subscription Ends On";
+  subscribeText = "Active";
   constructor( private api: APIServiceService, private platform: Platform, private storage: NativeStorage,private loadingCtrl: LoadingController) { }
 
   ngOnInit() {

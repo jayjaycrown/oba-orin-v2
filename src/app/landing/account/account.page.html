@@ -1,23 +1,31 @@
-<ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-  <div class="header">
-    <ion-toolbar>
-      <ion-title>Account Information</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-button fill="clear">
+          <ion-icon slot="icon-only" name="information-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>Subscription</ion-title>
       <ion-buttons slot="end">
         <ion-button (click)="logout()"  fill="clear">
           <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
-  </div>
-  <div class="content">
-    
-    <br><br>
-    <!-- <h3>Solagbade Jonathan</h3> -->
-    <h4>{{subscribeText}}</h4>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="center">
+    <h1>{{subscribeText}}</h1>
+    <p>Date</p>
     <p>{{subscription_expiry}}</p>
+  </div>
+  <div class="">
     
     <div *ngIf="subscribe" > 
       <br>
@@ -27,7 +35,7 @@
     </div>
     <div *ngIf="details" >
       <div class="subscribe" >
-        <div style="border: 1px solid red;">
+        <div style="border: 1px solid #1e319d; padding:10px">
           <ion-text class="small">Please pay to the following account to subscribe</ion-text>
         <h4>Providus Bank</h4>
         <h3>{{account_number}}</h3>
@@ -39,14 +47,31 @@
     </div>
     
   </div>
+  <br>
   <ion-card style="text-align: center;">
-    <ion-card-content>
-      <h1>Account Details</h1>
-    </ion-card-content>
+    <ion-card-header color="light">
+      <h3>Profile Information</h3>
+    </ion-card-header>
+    <!-- <ion-card-content>
+      
+    </ion-card-content> -->
   </ion-card>
 
-  <div class="list">
   <ion-list>
+    <ion-item>
+      <ion-icon name="person-outline" slot="start"></ion-icon>
+      <ion-label>Oshodi Olakinbi</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="mail-outline" slot="start"></ion-icon>
+      <ion-label>koded@gmsil.com</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="call-outline" slot="start"></ion-icon>
+      <ion-label>08071212123</ion-label>
+    </ion-item>
+  </ion-list>
+  <!-- <ion-list>
     <ion-item>
       <ion-label>{{name}}</ion-label>
     </ion-item>
@@ -56,8 +81,7 @@
     <ion-item>
       <ion-label>{{phone}}</ion-label>
     </ion-item>
-  </ion-list>
-</div>
+  </ion-list> -->
 
   
 </ion-content>
