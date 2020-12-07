@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './account.page.html',
   styleUrls: ['./account.page.scss'],
 })
+// tslint:disable-next-line: component-class-suffix
 export class AccountPage implements OnInit {
 
   details ;
@@ -16,22 +17,28 @@ export class AccountPage implements OnInit {
   name;
   email;
   phone;
+  // tslint:disable-next-line: variable-name
   account_number;
+  // tslint:disable-next-line: variable-name
   subscription_expiry;
-  subscribeText = "Active";
-  constructor( private api: APIServiceService, private platform: Platform, private storage: NativeStorage,private loadingCtrl: LoadingController) { }
+  subscribeText = 'ACTIVE';
+  constructor(
+    private api: APIServiceService,
+    private platform: Platform,
+    private storage: NativeStorage,
+    private loadingCtrl: LoadingController) { }
 
   ngOnInit() {
     this.platform.ready().then(() => {
       //  this.storage.remove('app_data');
       setTimeout(async () => {
         await this.api.checkLoggedIn();
-        if(this.api.app_data.account_number == ''){
+        if (this.api.app_data.account_number === ''){
           // alert(1);
           this.subscribe = true;
         }
     // alert(this.api.app_data.account_number);
-        if(this.api.app_data.account_number != ''){
+        if (this.api.app_data.account_number !== ''){
           this.details = true;
           this.account_number = this.api.app_data.account_number;
         }
@@ -39,15 +46,15 @@ export class AccountPage implements OnInit {
         this.email = this.api.app_data.email;
         this.phone = this.api.app_data.phone_number;
         this.subscription_expiry = this.api.app_data.subscription_expiry;
-        if(this.subscription_expiry == ''){
-          this.subscribeText = "No Active Subscription";
+        if (this.subscription_expiry === ''){
+          this.subscribeText = 'INACTIVE';
         }
       }, 1000);
-      
+
       // this.getImei();
     });
 
-   
+
 
   }
 
@@ -66,10 +73,10 @@ export class AccountPage implements OnInit {
     });
 
     (await loading).present();
-    this.api.generateAccount().subscribe(async(res:any) =>{
+    this.api.generateAccount().subscribe(async (res: any) => {
       // alert(res);
       res = JSON.parse(res);
-      if(res.status == 'success'){
+      if (res.status === 'success'){
         (await loading).dismiss();
         this.details = true;
         this.subscribe = false;
@@ -91,17 +98,17 @@ export class AccountPage implements OnInit {
   }
 
   async updateDetails(){
-    
-    await this.api.getDetails().toPromise().then(async (res:any) =>{
+
+    await this.api.getDetails().toPromise().then(async (res: any) => {
       // alert(res);
       res = JSON.parse(res);
-      if(res.status == 'success'){
+      if (res.status === 'success'){
         await this.storage.setItem('app_data', res.result);
-        if(res.result.subscription_expiry == ''){
-            this.subscribeText = "No Active Subscription";
+        if (res.result.subscription_expiry === ''){
+            this.subscribeText = 'INACTIVE';
             this.subscription_expiry = '';
         }else{
-            this.subscribeText = "Active Subscription Ends On";
+            this.subscribeText = 'ACTIVE';
             this.subscription_expiry = res.result.subscription_expiry;
         }
         // location.reload();
